@@ -1,6 +1,9 @@
+import os
+import gdown
 import streamlit as st
 import pickle
 import pandas as pd
+
 
 # ----------------------------
 # Page Configuration
@@ -74,7 +77,12 @@ font-size:18px;
 # Load Data
 # ----------------------------
 
-books = pd.read_csv("books.csv", on_bad_lines="skip")
+books = pd.read_csv("cleaned_data.csv", on_bad_lines="skip")
+FILE_ID = "d/1c6CidY2YCP0TeB03_5rW_cmi0T7c_ccY"
+
+if not os.path.exists("similarity.pkl"):
+    url = f"https://drive.google.com/uc?id={FILE_ID}"
+    gdown.download(url, "similarity.pkl", quiet=False)
 similarity = pickle.load(open("similarity.pkl","rb"))
 
 # ----------------------------
